@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ReMaster</string>
+    <string name="SentFrom">Contact Name</string>
+    <string name="Message">Message</string>
+    <string name="SettingsSubmit">Submit</string>
+    <string name="timepicker">Pick Me</string>
+</resources>
