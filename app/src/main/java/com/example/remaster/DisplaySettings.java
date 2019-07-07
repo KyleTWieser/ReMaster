@@ -52,6 +52,14 @@ public class DisplaySettings extends AppCompatActivity {
         long endM = times.getMinute() * 60000;
         long endTime = endH + endM;
         ogStartTime = endTime - startTime;
+        if (startTime >= endTime)
+        {
+            long temp = 86400000;
+            temp -= startTime;
+            temp += endTime;
+            ogStartTime = temp;
+
+        }
         mTimeLeftInMillis = ogStartTime;
 
         startTimer();
@@ -97,7 +105,7 @@ public class DisplaySettings extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mButtonStartPause.setText("Start");
+                mButtonStartPause.setText("Reset");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
                 mButtonReset.setVisibility(View.VISIBLE);
             }

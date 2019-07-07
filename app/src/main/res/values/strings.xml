@@ -4,4 +4,7 @@
     <string name="Message">Message</string>
     <string name="SettingsSubmit">Submit</string>
     <string name="timepicker">Pick Me</string>
+    <string name="startButton">Start</string>
+    <string name="resetButton">Reset</string>
+    <string name="stopButton">Stop</string>
 </resources>
