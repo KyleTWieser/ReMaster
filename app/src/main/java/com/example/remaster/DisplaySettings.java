@@ -9,10 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class DisplaySettings extends AppCompatActivity {
@@ -20,6 +17,7 @@ public class DisplaySettings extends AppCompatActivity {
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
     private Button mButtonReset;
+    private Button mButtonEditMessage;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimeLeftInMillis;
@@ -36,6 +34,7 @@ public class DisplaySettings extends AppCompatActivity {
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
+        mButtonEditMessage = findViewById(R.id.edit_message);
 
         MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
         Messages results = dbHandler.loadHandler();
@@ -86,6 +85,13 @@ public class DisplaySettings extends AppCompatActivity {
             }
         });
 
+        mButtonEditMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editMessage();
+            }
+        });
+
         updateCountDownText();
 
         TextView contactView = findViewById(R.id.contactView);
@@ -108,6 +114,7 @@ public class DisplaySettings extends AppCompatActivity {
                 mButtonStartPause.setText("Reset");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
                 mButtonReset.setVisibility(View.VISIBLE);
+                sendCall();
             }
         }.start();
 
@@ -138,5 +145,14 @@ public class DisplaySettings extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hours, minutes, seconds);
 
         mTextViewCountDown.setText(timeLeftFormatted);
+    }
+
+    private void editMessage() {
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity(intent);
+    }
+    public void sendCall() {
+        Intent intent = new Intent(this, PhoneCall.class );
+        startActivity(intent);
     }
 }

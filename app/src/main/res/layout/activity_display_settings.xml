@@ -6,26 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".DisplaySettings">
 
+    <include
+        android:id="@+id/toolbar"
+        layout= "@layout/action_bar">
+    </include>
+
     <TextView
         android:id="@+id/contactView"
-        android:layout_width="201dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="162dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="TextView"
-        android:textSize="24sp"
+        android:textColor="#3F51B5"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/messageView"
-        android:layout_width="256dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="357dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="TextView"
-        android:textSize="18sp"
+        android:textColor="#3F51B5"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactView" />
 
@@ -41,9 +54,10 @@
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageView"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.091" />
 
     <Button
         android:id="@+id/button_start_pause"
@@ -53,11 +67,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="Start"
         app:layout_constraintEnd_toStartOf="@+id/button_reset"
-        app:layout_constraintHorizontal_bias="0.763"
+        app:layout_constraintHorizontal_bias="0.732"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_countdown" />
 
@@ -68,11 +82,40 @@
         android:layout_alignStart="@+id/button_start_pause"
         android:layout_alignTop="@+id/button_start_pause"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="88dp"
         android:text="Reset"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_countdown"
         tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="385dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/carter_one"
+        android:text="@string/All_Set"
+        android:textAlignment="center"
+        android:textColor="#E91E63"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/edit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Edit Message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
