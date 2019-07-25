@@ -5,7 +5,7 @@
     android:layout_height="70dp"
     android:background="@android:color/holo_blue_bright"
     android:minHeight="50dp"
-    app:logo="@mipmap/ic_launcher_foreground"
+    app:logo="@mipmap/ic_launcher"
     app:title="@string/app_name"
     app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1">
 
