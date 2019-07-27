@@ -14,15 +14,18 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class DisplaySettings extends AppCompatActivity {
-
+    private static final long START_TIME_IN_MILLIS = 000000;
     private TextView mTextViewCountDown;
-    private Button mButtonStartPause;
-    private Button mButtonReset;
-    private Button mButtonEditMessage;
+    //private Button mButtonStartPause;
+    //private Button mButtonReset;
+    //private Button mButtonEditMessage;
+    private Button mButtonCancel;
+    private Button mButtonAdd_15_Minutes;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimeLeftInMillis;
     private long ogStartTime;
+    private String name;
 
     MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
 
@@ -33,10 +36,12 @@ public class DisplaySettings extends AppCompatActivity {
         setContentView(R.layout.activity_display_settings);
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
-        mButtonStartPause = findViewById(R.id.button_start_pause);
-        mButtonReset = findViewById(R.id.button_reset);
-        mButtonEditMessage = findViewById(R.id.edit_message);
+        //mButtonStartPause = findViewById(R.id.button_start_pause);
+        //mButtonReset = findViewById(R.id.button_reset);
 
+        mButtonCancel = findViewById(R.id.button_cancel);
+     //   mButtonEditMessage = findViewById(R.id.edit_message);
+        mButtonAdd_15_Minutes = findViewById(R.id.button_add_minutes);
         MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
         Messages results = dbHandler.loadHandler();
         Intent intent = getIntent();
@@ -63,6 +68,20 @@ public class DisplaySettings extends AppCompatActivity {
         mTimeLeftInMillis = ogStartTime;
 
         startTimer();
+        mButtonAdd_15_Minutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTimerRunning)
+                {
+                    addMinutes();
+                }
+                else
+                {
+                    startTimer();
+                }
+            }
+        });
+        /*
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -78,25 +97,36 @@ public class DisplaySettings extends AppCompatActivity {
             }
 
         });
-
+        */
+        /*
         mButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetTimer();
             }
         });
-
-        mButtonEditMessage.setOnClickListener(new View.OnClickListener() {
+        */
+        mButtonCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                editMessage();
+                cancelTimer();
+                Intent intent = new Intent(DisplaySettings.this, MainActivity.class);
+                startActivity(intent);
             }
         });
+
+//        mButtonEditMessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                editMessage();
+//            }
+//        });
 
         updateCountDownText();
 
         TextView contactView = findViewById(R.id.contactView);
         TextView messageView = findViewById(R.id.messageView);
+        name = contact;
         contactView.setText(contact);
         messageView.setText(message);
     }
@@ -112,32 +142,45 @@ public class DisplaySettings extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mButtonStartPause.setText("Reset");
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
+                //mButtonStartPause.setText("Reset");
+                //mButtonStartPause.setVisibility(View.INVISIBLE);
+                //mButtonReset.setVisibility(View.VISIBLE);
                 sendCall();
             }
         }.start();
 
         mTimerRunning = true;
-        mButtonStartPause.setText("Pause");
-        mButtonReset.setVisibility(View.INVISIBLE);
+        //mButtonStartPause.setText("Pause");
+        //mButtonReset.setVisibility(View.INVISIBLE);
     }
-
+    /*
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mButtonStartPause.setText("Start");
         mButtonReset.setVisibility(View.VISIBLE);
     }
-
+    */
+    /*
     private void resetTimer() {
         mTimeLeftInMillis = ogStartTime;
         updateCountDownText();
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
     }
-
+    */
+    private void addMinutes(){
+        mCountDownTimer.cancel();
+        mTimeLeftInMillis += 15*60*1000;
+        updateCountDownText();
+        startTimer();
+    }
+    private void cancelTimer(){
+        mCountDownTimer.cancel();
+        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+        mTimerRunning = false;
+        updateCountDownText();
+    }
     private void updateCountDownText() {
         int hours = (int) (mTimeLeftInMillis / 1000) / 3600;
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60 % 60;
@@ -148,13 +191,13 @@ public class DisplaySettings extends AppCompatActivity {
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
-    private void editMessage() {
-        Intent intent = new Intent(this, MainActivity.class );
-        startActivity(intent);
-    }
+//    private void editMessage() {
+//        Intent intent = new Intent(this, MainActivity.class );
+//        startActivity(intent);
+//    }
     public void sendCall() {
         Intent intent = new Intent(this, PhoneCall.class );
-        intent.setData(Uri.parse("SentFrom"));
+        intent.putExtra("contact", name);
         startActivity(intent);
     }
 }

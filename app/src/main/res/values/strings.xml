@@ -7,11 +7,10 @@
     <string name="startButton">Start</string>
     <string name="resetButton">Reset</string>
     <string name="stopButton">Stop</string>
-    <string name="Summary_Contact">A message from:</string>
-    <string name="Summary_Msg">Saying:</string>
-    <string name="Summary_String">Will be sending:</string>
     <string name="All_Set">You\'re All Set!</string>
     <string name="app_inst_btn_start">Get Started</string>
+    <string name="summary">When the timer hits 0, you will receive a call from:</string>
+    <string name="summaryMessage">If you opted for a text, the below message will be sent 1 min prior to the call:</string>
     <string name="app_inst_text"><p>Welcome to the Bad Date App!\n Looks like your in need of a fake emergency.\n
         After clicking \"Get Started\" you will be taken to the Create Your Settings page. Here you can enter the contact name you wish to appear as well as the message you want to show as the notification.\n
         You will then select the time of day you need a fake text sent. \nThat\'s it!\n Clicking \"Done\" will send you to the summary screen where you will see your countdown timer and the message info you can expect.\n

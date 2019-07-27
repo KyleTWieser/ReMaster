@@ -4,12 +4,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_foreground"
+        android:roundIcon="@drawable/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".PhoneCall"></activity>
+        <activity android:name=".PhoneCall"
+            android:showOnLockScreen="true"
+            android:screenOrientation="sensorPortrait"></activity>
         <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,9 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BlankPage"
+            android:parentActivityName = ".MainActivity"/>
+        <activity android:name=".LockedScreen"
+            android:parentActivityName = ".MainActivity"/>
         <activity android:name=".DisplaySettings" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".InstActivity" />
+        <activity android:name=".MainActivity"
+            android:parentActivityName = ".HomePage"/>
+        <activity android:name=".InstActivity"
+            android:parentActivityName = ".HomePage"/>
 
         <meta-data
             android:name="preloaded_fonts"
