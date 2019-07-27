@@ -3,6 +3,7 @@ package com.example.remaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -153,6 +154,7 @@ public class DisplaySettings extends AppCompatActivity {
     }
     public void sendCall() {
         Intent intent = new Intent(this, PhoneCall.class );
+        intent.setData(Uri.parse("SentFrom"));
         startActivity(intent);
     }
 }
