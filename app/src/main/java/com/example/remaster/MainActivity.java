@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText sendMessage;
     EditText ogContactName;
     EditText ogSendMessage;
-    TimePicker ogTimePicker;
+    //TimePicker ogTimePicker;
     MessagesDBHandler dbHandlerView = new MessagesDBHandler(this, null, null, 1);
 
     @Override
@@ -32,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         ogContactName = (EditText) findViewById(R.id.contactText);
         ogSendMessage = (EditText) findViewById(R.id.messageText);
-        ogTimePicker = (TimePicker) findViewById(R.id.timePicker1);
+        //ogTimePicker = (TimePicker) findViewById(R.id.timePicker1);
         try {
             Messages results = dbHandlerView.loadHandler();
             Times ogTimes = dbHandlerView.loadTimeHandler();
             ogSendMessage.setText(results.getMessage());
             ogContactName.setText(results.getContactName());
-            ogTimePicker.setHour(ogTimes.getHour());
-            ogTimePicker.setMinute(ogTimes.getMinute());
+            //ogTimePicker.setHour(ogTimes.getHour());
+            //ogTimePicker.setMinute(ogTimes.getMinute());
 
         }
         catch (SQLiteException e)
