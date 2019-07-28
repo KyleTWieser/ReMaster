@@ -11,10 +11,13 @@
     <string name="app_inst_btn_start">Get Started</string>
     <string name="summary">When the timer hits 0, you will receive a call from:</string>
     <string name="summaryMessage">If you opted for a text, the below message will be sent 1 min prior to the call:</string>
-    <string name="app_inst_text"><p>Welcome to the Bad Date App!\n Looks like your in need of a fake emergency.\n
-        After clicking \"Get Started\" you will be taken to the Create Your Settings page. Here you can enter the contact name you wish to appear as well as the message you want to show as the notification.\n
-        You will then select the time of day you need a fake text sent. \nThat\'s it!\n Clicking \"Done\" will send you to the summary screen where you will see your countdown timer and the message info you can expect.\n
-        If you feel like you just aren\'t sure about this date yet, you can add 15 minutes by clicking the \"extend\" button at any time.\n
+    <string name="app_inst_text"><p>Welcome to the Bad Date App!\n Looks like you\'re in need of a fake emergency.\n
+        After clicking \"Get Started\" you will be taken to the Settings page. Here you will enter the contact name you wish to appear on the \"incoming call\". If you choose to enable the text notification, you can
+        enter the message you wish to receive. The text will appear one min before you receive the \"call\".\n
+        You will then select the time of day you need a fake emergency simulated. \nThat\'s it!\n Clicking \"Submit\" will send you to the summary screen where you will see your countdown timer and the message info you can expect.\n
+        Upon receiving the \"incoming call\", you have two options. If you accept, the fake emergency simulator will conclude. If you decline, another \"call\" will be sent in thirty seconds. After the third declined \"call\",
+        you\'re fake emergency will be canceled and you will not receive any more \"calls\".\n
+        Remember, if you feel like you just aren\'t sure about this date yet, you can add 15 minutes at any time.\n
         If you end up having a great time just click the \"Cancel\" button to deactivate your fake emergency.\n Good luck!! We hope you have a great time!</p></string>
 
     <string name="settingsButton">Get Started</string>
