@@ -3,6 +3,7 @@ package com.example.remaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -17,13 +18,14 @@ public class DisplaySettings extends AppCompatActivity {
     private TextView mTextViewCountDown;
     //private Button mButtonStartPause;
     //private Button mButtonReset;
-    private Button mButtonEditMessage;
+    //private Button mButtonEditMessage;
     private Button mButtonCancel;
     private Button mButtonAdd_15_Minutes;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimeLeftInMillis;
     private long ogStartTime;
+    private String name;
 
     MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
 
@@ -38,7 +40,7 @@ public class DisplaySettings extends AppCompatActivity {
         //mButtonReset = findViewById(R.id.button_reset);
 
         mButtonCancel = findViewById(R.id.button_cancel);
-        mButtonEditMessage = findViewById(R.id.edit_message);
+     //   mButtonEditMessage = findViewById(R.id.edit_message);
         mButtonAdd_15_Minutes = findViewById(R.id.button_add_minutes);
         MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
         Messages results = dbHandler.loadHandler();
@@ -113,17 +115,18 @@ public class DisplaySettings extends AppCompatActivity {
             }
         });
 
-        mButtonEditMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editMessage();
-            }
-        });
+//        mButtonEditMessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                editMessage();
+//            }
+//        });
 
         updateCountDownText();
 
         TextView contactView = findViewById(R.id.contactView);
         TextView messageView = findViewById(R.id.messageView);
+        name = contact;
         contactView.setText(contact);
         messageView.setText(message);
     }
@@ -188,12 +191,13 @@ public class DisplaySettings extends AppCompatActivity {
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
-    private void editMessage() {
-        Intent intent = new Intent(this, MainActivity.class );
-        startActivity(intent);
-    }
+//    private void editMessage() {
+//        Intent intent = new Intent(this, MainActivity.class );
+//        startActivity(intent);
+//    }
     public void sendCall() {
         Intent intent = new Intent(this, PhoneCall.class );
+        intent.putExtra("contact", name);
         startActivity(intent);
     }
 }
