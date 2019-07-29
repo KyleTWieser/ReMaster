@@ -1,6 +1,7 @@
 package com.example.remaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,8 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.Context;
+
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -26,12 +29,20 @@ public class DisplaySettings extends AppCompatActivity {
     private long mTimeLeftInMillis;
     private long ogStartTime;
     private String name;
+    private String contact;
+    private String message;
+    private Boolean sendMessage;
 
     MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sendMessage = false;
+        if(getIntent().hasExtra("doSend")) {
+            sendMessage = getIntent().getBooleanExtra("doSend", false);
+            System.out.println(sendMessage);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_settings);
 
@@ -45,8 +56,8 @@ public class DisplaySettings extends AppCompatActivity {
         MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
         Messages results = dbHandler.loadHandler();
         Intent intent = getIntent();
-        String contact = results.getContactName();
-        String message = results.getMessage();
+        contact = results.getContactName();
+        message = results.getMessage();
         Times times = dbHandler.loadTimeHandler();
         Calendar c = Calendar.getInstance();
         long startH= (c.get(Calendar.HOUR_OF_DAY)) * 3600000;
@@ -132,11 +143,23 @@ public class DisplaySettings extends AppCompatActivity {
     }
 
     private void startTimer() {
+        final Context context = getApplicationContext();
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
+                System.out.println("mTimeLeftInMillis: " + mTimeLeftInMillis);
+                if (sendMessage && (mTimeLeftInMillis <= 60000))
+                {
+                    System.out.println("in the if statement of startTimer");
+                    NotificationHelper notificationHelper = new NotificationHelper(context);
+                    notificationHelper.setContact(contact);
+                    notificationHelper.setMessage(message);
+                    NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
+                    notificationHelper.getManager().notify(1, nb.build());
+                    sendMessage = false;
+                }
             }
 
             @Override
