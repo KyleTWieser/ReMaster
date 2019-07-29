@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.CheckBox;
 import android.widget.TimePicker;
 import java.util.Calendar;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     EditText ogContactName;
     EditText ogSendMessage;
     TimePicker ogTimePicker;
+    Boolean doSend;
     MessagesDBHandler dbHandlerView = new MessagesDBHandler(this, null, null, 1);
 
     @Override
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         ogContactName = (EditText) findViewById(R.id.contactText);
         ogSendMessage = (EditText) findViewById(R.id.messageText);
         ogTimePicker = (TimePicker) findViewById(R.id.timePicker1);
+
         try {
             Messages results = dbHandlerView.loadHandler();
             Times ogTimes = dbHandlerView.loadTimeHandler();
@@ -52,19 +55,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage(View view)
     {
+        String message = "no current message";
         Intent intent = new Intent(this, DisplaySettings.class );
+        intent.putExtra("doSend", doSend);
         contactName = (EditText) findViewById(R.id.contactText);
         String contact = contactName.getText().toString();
         sendMessage = (EditText) findViewById(R.id.messageText);
-        String message = sendMessage.getText().toString();
+        if (doSend) {
+            message = sendMessage.getText().toString();
+        }
 
         Calendar c = Calendar.getInstance();
 
         MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
         int id = 1;
-        Messages meso = new Messages(id, contact, message);
-        dbHandler.addHandler(meso);
-        dbHandler.close();
+        if (doSend) {
+            Messages meso = new Messages(id, contact, message);
+            dbHandler.addHandler(meso);
+            dbHandler.close();
+        }
         TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
         int hour = tp.getHour();
         int minute = tp.getMinute();
@@ -109,9 +118,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadData(View view)
+    public void enableTextMessage(View view)
     {
-
+        boolean checked = ((CheckBox) view).isChecked();
+        if (checked)
+        {
+            doSend = true;
+            ogSendMessage.setEnabled(true);
+        } else
+        {
+            doSend = false;
+        }
     }
 
 }
