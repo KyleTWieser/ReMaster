@@ -16,14 +16,12 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-    //public static final String EXTRA_MESSAGE = "com.example.remaster.MESSAGE";
-    //public static final String EXTRA_CONTACT = "com.example.remaster.CONTACT";
     public static Boolean timeGood = false;
     EditText contactName;
     EditText sendMessage;
     EditText ogContactName;
     EditText ogSendMessage;
-    //TimePicker ogTimePicker;
+    //true if the user wants to send a text, false if they do not
     Boolean doSend = false;
     MessagesDBHandler dbHandlerView = new MessagesDBHandler(this, null, null, 1);
 
@@ -34,15 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         ogContactName = (EditText) findViewById(R.id.contactText);
         ogSendMessage = (EditText) findViewById(R.id.messageText);
-        //ogTimePicker = (TimePicker) findViewById(R.id.timePicker1);
 
         try {
             Messages results = dbHandlerView.loadHandler();
-            Times ogTimes = dbHandlerView.loadTimeHandler();
             ogSendMessage.setText(results.getMessage());
             ogContactName.setText(results.getContactName());
-            //ogTimePicker.setHour(ogTimes.getHour());
-            //ogTimePicker.setMinute(ogTimes.getMinute());
 
         }
         catch (SQLiteException e)
@@ -90,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
         checkTimes(currentTime, newTime, intent);
     }
 
+    /**
+     * Will check current time against the user submitted time
+     * If user time is before current time a warning message will display
+     * @param currentTime  The current time
+     * @param newTime The user entered time
+     * @param intent The activity to start if time is correct or user chooses to proceed
+     */
     private void checkTimes(long currentTime, long newTime, final Intent intent) {
         if(currentTime > newTime) {
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
@@ -110,14 +111,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 alert.show();
-
-
         }
         else{
             startActivity(intent);
         }
     }
 
+    //if the user hits the checkbox, we want to change the boolean doSend to reflect that and
+    //enable input into the message area
     public void enableTextMessage(View view)
     {
         boolean checked = ((CheckBox) view).isChecked();

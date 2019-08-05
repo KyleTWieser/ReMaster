@@ -20,6 +20,10 @@ public class InstActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * onClick method for instructions page button. Will send user to settings page
+     * @param view
+     */
     public void getStarted(View view){
         startActivity(new Intent(InstActivity.this, MainActivity.class));
     }

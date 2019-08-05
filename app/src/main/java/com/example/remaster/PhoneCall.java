@@ -23,7 +23,9 @@ public class PhoneCall extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-
+        /**
+         * User submitted contact name. Will display on incoming phone call screen
+         */
         incomingContact = getIntent().getStringExtra("contact");
 
         System.out.println("in onCreate: "+ incomingContact);

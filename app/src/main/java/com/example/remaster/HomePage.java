@@ -14,6 +14,9 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        /**
+         * Button and functionality to start app from home screen
+         */
         Button getStartedButton = (Button) findViewById(R.id.getStartedButt);
         getStartedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,6 +26,9 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        /**
+         * Button and functionality to view instructions page
+         */
         Button instrButton = (Button) findViewById(R.id.button2);
         instrButton.setOnClickListener(new View.OnClickListener() {
             @Override
