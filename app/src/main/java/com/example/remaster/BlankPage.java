@@ -6,7 +6,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**
+ * This is the Blank page that can simulate the locked screen
+ */
 public class BlankPage extends Activity {
+    /**
+     * This method create a full black screen
+     * @param savedInstanceState a bundle object that is passed into the onCreate method for every Andriod activity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);

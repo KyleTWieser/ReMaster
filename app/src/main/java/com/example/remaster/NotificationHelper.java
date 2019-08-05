@@ -21,12 +21,12 @@ public class NotificationHelper extends ContextWrapper{
 
     public NotificationHelper(Context base){
         super(base);
-        System.out.println("in Notification Helper");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
         }
     }
 
+    //creates channel for notification to come through
     @TargetApi(Build.VERSION_CODES.O)
     public void createChannel() {
         NotificationChannel channel = new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH);
@@ -37,6 +37,7 @@ public class NotificationHelper extends ContextWrapper{
         getManager().createNotificationChannel(channel);
     }
 
+    //manages how it will be sent
     public NotificationManager getManager() {
         if (nManager == null){
             nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -45,14 +46,17 @@ public class NotificationHelper extends ContextWrapper{
         return nManager;
     }
 
+    //customizes the contact name from display settings
     public void setContact(String contact) {
         this.contact = contact;
     }
 
+    //customizes the message from display settings
     public void setMessage(String message) {
         this.message = message;
     }
 
+    //builds the notification structure
     public NotificationCompat.Builder getChannelNotification() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(contact)

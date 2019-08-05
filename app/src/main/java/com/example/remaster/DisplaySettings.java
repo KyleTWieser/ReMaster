@@ -19,10 +19,13 @@ import java.util.Locale;
 public class DisplaySettings extends AppCompatActivity {
     private static final long START_TIME_IN_MILLIS = 000000;
     private TextView mTextViewCountDown;
-    //private Button mButtonStartPause;
-    //private Button mButtonReset;
-    //private Button mButtonEditMessage;
+    /**
+     * Button that cancel the setting
+     */
     private Button mButtonCancel;
+    /**
+     * Button that adds additional 15 minutes
+     */
     private Button mButtonAdd_15_Minutes;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
@@ -31,6 +34,7 @@ public class DisplaySettings extends AppCompatActivity {
     private String name;
     private String contact;
     private String message;
+    //boolean sent from MainActivity... true if sending text, false if not
     private Boolean sendMessage;
 
     MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
@@ -92,31 +96,7 @@ public class DisplaySettings extends AppCompatActivity {
                 }
             }
         });
-        /*
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                if (mTimerRunning)
-                {
-                    pauseTimer();
-                }
-                else
-                {
-                    startTimer();
-                }
-            }
 
-        });
-        */
-        /*
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-            }
-        });
-        */
         mButtonCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -126,13 +106,6 @@ public class DisplaySettings extends AppCompatActivity {
             }
         });
 
-//        mButtonEditMessage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editMessage();
-//            }
-//        });
-
         updateCountDownText();
 
         TextView contactView = findViewById(R.id.contactView);
@@ -141,6 +114,7 @@ public class DisplaySettings extends AppCompatActivity {
         messageView = findViewById(R.id.messageView);
         name = contact;
         contactView.setText(contact);
+        //set the message shown based on the sendMessage boolean
         if (sendMessage) {
             messageView.setText(message);
         } else {
@@ -156,14 +130,18 @@ public class DisplaySettings extends AppCompatActivity {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
                 System.out.println("mTimeLeftInMillis: " + mTimeLeftInMillis);
+                //if block used to send text message if sendMessage is true and there is less than a minute left on timer
                 if (sendMessage && (mTimeLeftInMillis <= 60000))
                 {
-                    System.out.println("in the if statement of startTimer");
+                    //calling NotificationHelper class to send text message
                     NotificationHelper notificationHelper = new NotificationHelper(context);
+                    //next two lines sent to NotificationHelper to customize message
                     notificationHelper.setContact(contact);
                     notificationHelper.setMessage(message);
+                    //builds the channel to send the notification
                     NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
                     notificationHelper.getManager().notify(1, nb.build());
+                    //set to false so it does not send again
                     sendMessage = false;
                 }
             }
@@ -171,39 +149,26 @@ public class DisplaySettings extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                //mButtonStartPause.setText("Reset");
-                //mButtonStartPause.setVisibility(View.INVISIBLE);
-                //mButtonReset.setVisibility(View.VISIBLE);
                 sendCall();
             }
         }.start();
 
         mTimerRunning = true;
-        //mButtonStartPause.setText("Pause");
-        //mButtonReset.setVisibility(View.INVISIBLE);
     }
-    /*
-    private void pauseTimer() {
-        mCountDownTimer.cancel();
-        mTimerRunning = false;
-        mButtonStartPause.setText("Start");
-        mButtonReset.setVisibility(View.VISIBLE);
-    }
-    */
-    /*
-    private void resetTimer() {
-        mTimeLeftInMillis = ogStartTime;
-        updateCountDownText();
-        mButtonReset.setVisibility(View.INVISIBLE);
-        mButtonStartPause.setVisibility(View.VISIBLE);
-    }
-    */
+
+    /**
+     * Add 15 minutes on the current time.
+     */
     private void addMinutes(){
         mCountDownTimer.cancel();
         mTimeLeftInMillis += 15*60*1000;
         updateCountDownText();
         startTimer();
     }
+
+    /**
+     * Cancel the current time.
+     */
     private void cancelTimer(){
         mCountDownTimer.cancel();
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
@@ -220,10 +185,6 @@ public class DisplaySettings extends AppCompatActivity {
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
-//    private void editMessage() {
-//        Intent intent = new Intent(this, MainActivity.class );
-//        startActivity(intent);
-//    }
     public void sendCall() {
         Intent intent = new Intent(this, PhoneCall.class );
         intent.putExtra("contact", name);
