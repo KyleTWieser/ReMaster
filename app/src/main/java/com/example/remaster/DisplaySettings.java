@@ -136,10 +136,16 @@ public class DisplaySettings extends AppCompatActivity {
         updateCountDownText();
 
         TextView contactView = findViewById(R.id.contactView);
-        TextView messageView = findViewById(R.id.messageView);
+        TextView messageView;
+        String noMes = " ";
+        messageView = findViewById(R.id.messageView);
         name = contact;
         contactView.setText(contact);
-        messageView.setText(message);
+        if (sendMessage) {
+            messageView.setText(message);
+        } else {
+            messageView.setText(noMes);
+        }
     }
 
     private void startTimer() {

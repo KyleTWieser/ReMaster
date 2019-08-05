@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     EditText ogContactName;
     EditText ogSendMessage;
     //TimePicker ogTimePicker;
-    Boolean doSend;
+    Boolean doSend = false;
     MessagesDBHandler dbHandlerView = new MessagesDBHandler(this, null, null, 1);
 
     @Override
