@@ -23,11 +23,9 @@ public class PhoneCall extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        if (getIntent().hasExtra("contact")) {
-            incomingContact = getIntent().getStringExtra("contact");
-        } else {
-            throw new IllegalArgumentException("Activity cannot find extras ");
-        }
+
+        incomingContact = getIntent().getStringExtra("contact");
+
         System.out.println("in onCreate: "+ incomingContact);
         setContentView(R.layout.activity_phone_call);
         textView = (TextView) findViewById(R.id.textView4);
