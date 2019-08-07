@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ogContactName = (EditText) findViewById(R.id.contactText);
         ogSendMessage = (EditText) findViewById(R.id.messageText);
 
+        //Tries to get data stored in the Message table and sets it in the UI
+        //If there is nothing is in the table then the exception is caught.
         try {
             Messages results = dbHandlerView.loadHandler();
             ogSendMessage.setText(results.getMessage());
@@ -47,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
         dbHandlerView.close();
     }
 
+    /**
+     * Method is used to get message, contact, and time from the UI and store it in the database.
+     * @param view
+     */
     public void sendMessage(View view)
     {
         String message = "no current message";

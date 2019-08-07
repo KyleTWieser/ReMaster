@@ -51,18 +51,20 @@ public class DisplaySettings extends AppCompatActivity {
         setContentView(R.layout.activity_display_settings);
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
-        //mButtonStartPause = findViewById(R.id.button_start_pause);
-        //mButtonReset = findViewById(R.id.button_reset);
-
         mButtonCancel = findViewById(R.id.button_cancel);
-     //   mButtonEditMessage = findViewById(R.id.edit_message);
         mButtonAdd_15_Minutes = findViewById(R.id.button_add_minutes);
+
         MessagesDBHandler dbHandler = new MessagesDBHandler(this, null, null, 1);
+        //Loads message and contact name that was stored in database.
         Messages results = dbHandler.loadHandler();
         Intent intent = getIntent();
         contact = results.getContactName();
         message = results.getMessage();
+        //Loads the time that was stored in the databse.
         Times times = dbHandler.loadTimeHandler();
+
+        //Setting up the start time for the timer.
+        //All the measurements of time are converted to milliseconds.
         Calendar c = Calendar.getInstance();
         long startH= (c.get(Calendar.HOUR_OF_DAY)) * 3600000;
         long startM = c.get(Calendar.MINUTE) * 60000;
@@ -72,6 +74,9 @@ public class DisplaySettings extends AppCompatActivity {
         long endM = times.getMinute() * 60000;
         long endTime = endH + endM;
         ogStartTime = endTime - startTime;
+        //This checks if the time the user entered is less than the current time.
+        //If it is the we figure out how much time between midnight and the start time there is.
+        //Then we add that time with the start time to get the correct countdown.
         if (startTime >= endTime)
         {
             long temp = 86400000;
@@ -122,6 +127,9 @@ public class DisplaySettings extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts timer
+     */
     private void startTimer() {
         final Context context = getApplicationContext();
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
@@ -175,6 +183,10 @@ public class DisplaySettings extends AppCompatActivity {
         mTimerRunning = false;
         updateCountDownText();
     }
+
+    /**
+     * Updates the countdown UI with how much time is left.
+     */
     private void updateCountDownText() {
         int hours = (int) (mTimeLeftInMillis / 1000) / 3600;
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60 % 60;
